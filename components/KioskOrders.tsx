@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import OrderCard from "@/components/OrderCard";
+import Notification from "@/components/Notification";
+import { useRef } from "react";
 
 type Order = {
   id: string;
@@ -67,10 +69,32 @@ function OrderColumn({
 
 export default function KioskOrders() {
   const router = useRouter();
-
+  const notificationAudio = useRef<HTMLAudioElement | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [lastOrderCount, setLastOrderCount] = useState(0);
- 
+  const [notification, setNotification] = useState<{
+  message: string;
+  type: "success" | "error" | "warning" | "info";
+} | null>(null);
+ function showNotification(
+  message: string,
+  type: "success" | "error" | "warning" | "info"
+) {
+  setNotification({
+    message,
+    type,
+  });
+
+  setTimeout(() => {
+    setNotification(null);
+  }, 3000);
+}
+
+useEffect(() => {
+  notificationAudio.current = new Audio("/notification.wav");
+  notificationAudio.current.volume = 0.2;
+}, []);
+
 useEffect(() => {
   const channel = supabase
     .channel("new-orders")
@@ -84,13 +108,12 @@ useEffect(() => {
       (payload) => {
         console.log("New order:", payload);
 
-        const audio = new Audio("/notification.wav");
-audio.volume = 0.5; // 30% volume
-audio.play().catch((error) => {
-  console.error(error);
-});
+       notificationAudio.current?.play().catch(console.error);
 
-        alert("התקבלה הזמנה חדשה!");
+        showNotification(
+  "התקבלה הזמנה חדשה!",
+  "success"
+);
       }
     )
     .subscribe();
@@ -119,12 +142,7 @@ audio.play().catch((error) => {
       return;
     }
 
-   if (orders.length > 0 && data.length > orders.length) {
-  const audio = new Audio("/notification.mp3");
-  audio.play();
-
-  alert("התקבלה הזמנה חדשה!");
-}
+  
 
 setOrders(data);
   }
@@ -183,14 +201,19 @@ const activeOrders = [
 ];
 
 
-
   return (
     <div className="min-h-screen bg-slate-100 p-8">
   <div className="mx-auto max-w-7xl">
      <div className="mb-10">
 
   <div className="flex items-start justify-between">
-
+{notification && (
+  <Notification
+    message={notification.message}
+    type={notification.type}
+    onClose={() => setNotification(null)}
+  />
+)}
     <div>
       <h1 className="text-4xl font-bold tracking-tight text-slate-900">
         לוח הזמנות

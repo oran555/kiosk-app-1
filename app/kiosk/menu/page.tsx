@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import AdminProductCard from "@/components/AdminProductCard";
+import Notification from "@/components/Notification";
 
 type Product = {  
   id: string;
@@ -41,6 +42,12 @@ const [showCategoryAdd, setShowCategoryAdd] = useState(false);
 const imagePreview = newImage
   ? URL.createObjectURL(newImage)
   : null;
+const [notification, setNotification] = useState<{
+  message: string;
+  type: "success" | "error" | "warning" | "info";
+} | null>(null);
+
+
 
  async function loadProducts() {
   const { data, error } = await supabase
@@ -93,17 +100,26 @@ const imagePreview = newImage
     console.log("Current user:", user);
 
     if (!newName.trim()) {
-  alert("נא להכניס שם מוצר");
+  showNotification(
+  "נא להכניס שם המוצר",
+  "warning"
+);
   return;
 }
 
  if (!newPrice) {
-    alert("נא להכניס מחיר למוצר");
+   showNotification(
+    "נא להכניס מחיר למוצר" ,
+    "warning"
+);
     return;
   }
 
 if (Number(newPrice) <= 0) {
-  alert("נא להכניס מחיר תקין");
+  showNotification(
+    "נא להכניס מחיר תקין" ,
+    "warning"
+);
   return;
 }
 
@@ -111,7 +127,7 @@ if (Number(newPrice) <= 0) {
 
     if (newImage) {
       const extension = newImage.name.split(".").pop();
-      const fileName = `${Date.now()}.${extension}`;
+      const fileName = `${crypto.randomUUID()}.${extension}`;
 
       const { error: uploadError } = await supabase.storage
         .from("product-images")
@@ -142,8 +158,10 @@ if (Number(newPrice) <= 0) {
 
     if (error) {
       console.error(error);
-      alert(JSON.stringify(error));
-      alert("שגיאה בהוספת מוצר");
+      showNotification(
+  "שגיאה בהוספת מוצר",
+  "error"
+);
       return;
     }
 
@@ -156,7 +174,10 @@ if (Number(newPrice) <= 0) {
     await loadProducts();
   } catch (error) {
     console.error(error);
-    alert("אירעה שגיאה בלתי צפויה");
+    showNotification(
+"איראה שגיעה בלתי צפויה",
+  "error"
+);
   } finally {
     setIsAdding(false);
   }
@@ -174,7 +195,10 @@ async function addCategory() {
 
   if (error) {
     console.error(error);
-    alert("שגיאה בהוספת קטגוריה");
+    showNotification(
+  "שגיאה בהוספת קטגוריה",
+  "error"
+);
     return;
   }
 
@@ -245,7 +269,10 @@ async function saveProduct() {
 
     if (error) {
     console.error(error);
-    alert("שגיאה במחיקת המוצר");
+    showNotification(
+  "שגיאה במחיקת המוצר",
+  "error"
+);
     return;
   }
 
@@ -278,10 +305,31 @@ async function deleteCategory(categoryId: string) {
   loadProducts();
 }
 
+function showNotification(
+  message: string,
+  type: "success" | "error" | "warning" | "info"
+) {
+  setNotification({
+    message,
+    type,
+  });
+
+  setTimeout(() => {
+    setNotification(null);
+  }, 3000);
+}
+
  return (
+  
   <main className="min-h-screen bg-slate-100 p-8">
     <div className="mb-10 flex items-center justify-between">
-
+{notification && (
+  <Notification
+    message={notification.message}
+    type={notification.type}
+    onClose={() => setNotification(null)}
+  />
+)}
   <div>
 
     <h1 className="text-4xl font-bold tracking-tight text-slate-900">

@@ -25,10 +25,16 @@ export default function LoginPage() {
   setLoading(false);
 
   if (error) {
-    alert(error.message);
-    return;
-  }
+  alert(error.message);
+  return;
+}
 
+// Unlock audio after a user interaction
+const audio = new Audio("/notification.wav");
+audio.volume = 0;
+audio.play().catch(() => {});
+
+router.push("/kiosk");
   
 
   router.push("/kiosk");
