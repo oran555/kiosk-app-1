@@ -54,23 +54,7 @@ export default function ProductList({
  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 const [isSending, setIsSending] = useState(false);
 
- <button
-  onClick={() => {
-    document
-      .getElementById("my-order")
-      ?.scrollIntoView({ behavior: "smooth" });
-  }}
-  className="
-    fixed bottom-5 right-5 z-50
-    flex h-12 w-12 items-center justify-center
-    rounded-full
-    bg-slate-900
-    text-2xl text-white
-    shadow-xl
-  "
->
-  ⌃
-</button>
+
   useEffect(() => {
   const savedOrderId = localStorage.getItem("currentOrderId");
 
@@ -278,9 +262,10 @@ if (updatedOrder.status === "נמסר") {
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
       <aside className="order-1 lg:order-2 space-y-6">
-    <div className="rounded-3xl border border-slate-300 bg-white p-6 shadow-sm">
+    <div  id="my-order"
+    className= "rounded-3xl border border-slate-300 bg-white p-6 shadow-sm">
   <div className="flex items-center justify-between">
-    <div  id="my-order">
+    <div>
       <h2 className="text-2xl font-bold text-slate-900">
         ההזמנה שלי
       </h2>
@@ -563,6 +548,36 @@ if (updatedOrder.status === "נמסר") {
   </div>
 )}
 </section>
+  <button
+  onClick={() => {
+    document
+      .getElementById("my-order")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="
+    fixed
+    bottom-5
+    left-1/2
+    -translate-x-1/2
+    z-50
+    flex
+    h-14
+w-14
+    items-center
+    justify-center
+    rounded-full
+    bg-slate-900
+    text-white
+    shadow-xl
+    active:scale-100
+  "
+>
+  <div className="flex flex-col items-center -space-y-6">
+  <span className="h-4 w-4 rotate-45 border-l-3 border-t-3 border-white"></span>
+  <span className="h-4 w-4 rotate-45 border-l-3 border-t-3 border-white"></span>
+</div>
+</button>
     </div>
+   
   );
 }
