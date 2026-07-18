@@ -53,7 +53,24 @@ export default function ProductList({
  const [myOrder, setMyOrder] = useState<MyOrder | null>(null);
  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 const [isSending, setIsSending] = useState(false);
- 
+
+ <button
+  onClick={() => {
+    document
+      .getElementById("my-order")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="
+    fixed bottom-5 right-5 z-50
+    flex h-12 w-12 items-center justify-center
+    rounded-full
+    bg-slate-900
+    text-2xl text-white
+    shadow-xl
+  "
+>
+  ⌃
+</button>
   useEffect(() => {
   const savedOrderId = localStorage.getItem("currentOrderId");
 
@@ -263,7 +280,7 @@ if (updatedOrder.status === "נמסר") {
       <aside className="order-1 lg:order-2 space-y-6">
     <div className="rounded-3xl border border-slate-300 bg-white p-6 shadow-sm">
   <div className="flex items-center justify-between">
-    <div>
+    <div  id="my-order">
       <h2 className="text-2xl font-bold text-slate-900">
         ההזמנה שלי
       </h2>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useState } from "react";
 
 type ProductCardProps = {
   name: string;
@@ -14,7 +15,23 @@ export default function ProductCard({
   imageUrl,
   onAddToCart,
   isAvailable,
+
+  
 }: ProductCardProps) {
+  const [added, setAdded] = useState(false);
+
+const handleAdd = () => {
+  onAddToCart();
+
+  setAdded(true);
+
+  setTimeout(() => {
+    setAdded(false);
+  }, 1000);
+};
+
+
+
   return (
     <div
   className="
@@ -109,7 +126,7 @@ export default function ProductCard({
 
 
           <button
-            onClick={onAddToCart}
+            onClick={handleAdd}
             disabled={!isAvailable}
             className={`
              rounded-xl
@@ -122,13 +139,15 @@ duration-200
 active:scale-95
 
               ${
-                isAvailable
-                  ? "bg-slate-900 text-white hover:bg-slate-800"
-                  : "cursor-not-allowed bg-slate-200 text-slate-500"
-              }
+  !isAvailable
+    ? "cursor-not-allowed bg-slate-200 text-slate-500"
+    : added
+    ? "bg-green-600 text-white"
+    : "bg-slate-900 text-white hover:bg-slate-800"
+}
             `}
           >
-            {isAvailable ? "הוסף" : "לא זמין"}
+           {!isAvailable ? "לא זמין" : added ? "✓ נוסף" : "הוסף"}
           </button>
 
         </div>
