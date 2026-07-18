@@ -48,16 +48,24 @@ const [notification, setNotification] = useState<{
 } | null>(null);
 
 useEffect(() => {
-  if (editingProduct) {
+  const modalOpen =
+    editingProduct ||
+    showAdd ||
+    showCategoryAdd;
+
+  if (modalOpen) {
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
   }
 
   return () => {
     document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
   };
-}, [editingProduct]);
+}, [editingProduct, showAdd, showCategoryAdd]);
 
  async function loadProducts() {
   const { data, error } = await supabase
