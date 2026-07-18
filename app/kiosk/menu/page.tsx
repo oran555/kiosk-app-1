@@ -340,7 +340,7 @@ function showNotification(
  return (
   
   <main className="min-h-screen bg-slate-100 p-8">
-    <div className="mb-10 flex items-center justify-between">
+   <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       
 {notification && (
   <Notification
@@ -361,7 +361,7 @@ function showNotification(
 
   </div>
 
-  <div className="flex gap-3">
+  <div className="flex flex-wrap gap-3">
 
     <button
       onClick={() => setShowAdd(true)}
