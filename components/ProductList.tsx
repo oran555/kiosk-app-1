@@ -426,9 +426,26 @@ if (updatedOrder.status === "נמסר") {
 
     <span className="text-2xl font-bold text-slate-900">
       ₪{totalPrice}
-    </span>
+    </span> 
+   
   </div>
-
+ <button
+  onClick={() => setCartItems([])}
+  className="
+    mt-4
+    w-full
+    rounded-xl
+    border
+    border-red-300
+    py-3
+    font-semibold
+    text-red-600
+    transition
+    hover:bg-red-50
+  "
+>
+  ניקוי סל
+</button>
   <div className="mt-6 space-y-4">
     <input
       type="text"

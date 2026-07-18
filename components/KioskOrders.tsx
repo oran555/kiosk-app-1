@@ -58,6 +58,7 @@ function OrderColumn({
               totalPrice={order.total_price}
               status={order.status}
               createdAt={order.created_at}
+              notes={order.notes}
               items={order.order_items || []}
             />
           ))
@@ -125,22 +126,27 @@ useEffect(() => {
 
 }, []);
   async function loadOrders() {
-    const { data, error } = await supabase
-      .from("orders")
-      .select(`
-        *,
-        order_items (
-          id,
-          product_name,
-          quantity
-        )
-      `)
+   const { data, error } = await supabase
+  .from("orders")
+  .select(`
+    *,
+    order_items (
+      id,
+      product_name,
+      quantity
+    )
+  `)
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error(error);
-      return;
-    }
+  console.error(
+    "Load orders error:",
+    error.message,
+    error.details,
+    error.hint
+  );
+  return;
+}
 
   
 
@@ -281,23 +287,95 @@ const activeOrders = [
         {activeOrders.length} הזמנות
       </span>
     </div>
+<div
+  className="
+    sticky
+    top-0
+    z-40
+    mb-6
+    flex
+    gap-2
+    overflow-x-auto
+    rounded-2xl
+    bg-white
+    p-3
+    shadow-sm
+  "
+>
+  <button
+    onClick={() =>
+      document
+        .getElementById("new-orders")
+        ?.scrollIntoView({ behavior: "smooth" })
+    }
+    className="whitespace-nowrap rounded-xl bg-slate-900 px-4 py-2 text-white"
+  >
+     חדשות
+  </button>
 
+  <button
+    onClick={() =>
+      document
+        .getElementById("preparing-orders")
+        ?.scrollIntoView({ behavior: "smooth" })
+    }
+    className="whitespace-nowrap rounded-xl bg-slate-900 px-4 py-2"
+  >
+    בהכנה
+  </button>
+
+  <button
+    onClick={() =>
+      document
+        .getElementById("ready-orders")
+        ?.scrollIntoView({ behavior: "smooth" })
+    }
+    className="whitespace-nowrap rounded-xl bg-slate-900 px-4 py-2"
+  >
+     מוכן
+  </button>
+  <button
+  onClick={() =>
+    document
+      .getElementById("delivered-orders")
+      ?.scrollIntoView({ behavior: "smooth" })
+  }
+  className="whitespace-nowrap rounded-xl bg-slate-900 px-4 py-2"
+>
+   נמסר
+</button>
+</div>
     <div className="grid gap-6 lg:grid-cols-3">
-      <OrderColumn
-        title="חדשות"
-        orders={newOrders}
-      />
 
-      <OrderColumn
-        title="בהכנה"
-        orders={preparingOrders}
-      />
+  <div id="new-orders" className="scroll-mt-24">
+    <OrderColumn
+      title="חדשות"
+      orders={newOrders}
+    />
+  </div>
 
-      <OrderColumn
-        title="מוכן"
-        orders={readyOrders}
-      />
-    </div>
+  <div id="preparing-orders" className="scroll-mt-24">
+    <OrderColumn
+      title="בהכנה"
+      orders={preparingOrders}
+    />
+  </div>
+
+  <div id="ready-orders" className="scroll-mt-24">
+    <OrderColumn
+      title="מוכן"
+      orders={readyOrders}
+    />
+  </div>
+<div id="delivered-orders" className="scroll-mt-24">
+
+  <OrderColumn
+    title="נמסר"
+    orders={deliveredOrders}
+  />
+
+</div>
+</div>
   </section>
 
   <section>
@@ -331,6 +409,7 @@ const activeOrders = [
       totalPrice={order.total_price}
       status={order.status}
       createdAt={order.created_at}
+      notes={order.notes}
       items={order.order_items || []}
     />
     

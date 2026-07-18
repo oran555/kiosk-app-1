@@ -9,6 +9,7 @@ type OrderCardProps = {
   totalPrice: number;
   status: string;
   createdAt: string;
+  notes: string | null;
   items: {
     id: string;
     product_name: string;
@@ -22,9 +23,11 @@ export default function OrderCard({
   totalPrice,
   status,
   createdAt,
+  notes,
   items,
 }: OrderCardProps) {
   const [loading, setLoading] = useState(false);
+const [added, setAdded] = useState(false);
 
 const orderDate = new Date(createdAt + "Z").toLocaleDateString("he-IL", {
   day: "2-digit",
@@ -182,7 +185,20 @@ const orderDate = new Date(createdAt + "Z").toLocaleDateString("he-IL", {
         border-slate-200
       " />
 
-
+{notes && (
+  <div
+    className="
+      mb-4
+      rounded-xl
+      bg-yellow-50
+      p-3
+      text-l
+      text-yellow-800
+    "
+  >
+     {notes}
+  </div>
+)}
       <div className="space-y-3">
 
         {items.map((item) => (

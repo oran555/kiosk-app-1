@@ -47,7 +47,17 @@ const [notification, setNotification] = useState<{
   type: "success" | "error" | "warning" | "info";
 } | null>(null);
 
+useEffect(() => {
+  if (editingProduct) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 
+  return () => {
+    document.body.style.overflow = "";
+  };
+}, [editingProduct]);
 
  async function loadProducts() {
   const { data, error } = await supabase
