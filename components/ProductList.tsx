@@ -135,15 +135,20 @@ const totalPrice = cartItems.reduce(
   0
 );
 async function sendOrder() {
+  if (isSending) return;
+
+  setIsSending(true);
   if (studentName.trim() === "") {
-    alert("יש להזין שם");
-    return;
-  }
+  setIsSending(false);
+  alert("יש להזין שם");
+  return;
+}
 
   if (cartItems.length === 0) {
-    alert("הסל ריק");
-    return;
-  }
+  setIsSending(false);
+  alert("הסל ריק");
+  return;
+}
 
   const { data: order, error } = await supabase
   .from("orders")
@@ -196,9 +201,10 @@ if (orderItemsError) {
   setCartItems([]);
   setStudentName("");
   setNotes("");
-  
+  setIsSending(false);
 }
 useEffect(() => {
+  
   if (!currentOrderId) return;
 
   async function loadMyOrder() {
@@ -464,6 +470,7 @@ if (updatedOrder.status === "נמסר") {
 
     <button
   onClick={sendOrder}
+   disabled={isSending}
   className="
     w-full
     rounded-xl

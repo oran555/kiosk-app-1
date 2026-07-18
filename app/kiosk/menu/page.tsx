@@ -47,6 +47,8 @@ const [notification, setNotification] = useState<{
   type: "success" | "error" | "warning" | "info";
 } | null>(null);
 
+
+
 useEffect(() => {
   const modalOpen =
     editingProduct ||
@@ -601,19 +603,13 @@ function showNotification(
       תצוגה מקדימה
     </p>
 
-    <img
-      src={imagePreview}
-      alt="Preview"
-      className="
-        h-40
-        w-full
-        rounded-xl
-        border
-        border-slate-300
-        object-cover
-      "
-    />
-
+   <Image
+  src={imagePreview}
+  alt="תצוגה מקדימה"
+  width={300}
+  height={300}
+  className="object-cover rounded-xl"
+/>
     <p className="mt-2 text-sm text-slate-500">
       {newImage?.name}
     </p>
