@@ -546,7 +546,22 @@ function showNotification(
 
     <div className="mt-8 border-t border-slate-200 pt-6">
  
+<select
+  value={newCategory}
+  onChange={(e) => setNewCategory(e.target.value)}
+  className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900"
+>
+  <option value="">ללא קטגוריה</option>
 
+  {categories.map((category) => (
+    <option
+      key={category.id}
+      value={category.id}
+    >
+      {category.name}
+    </option>
+  ))}
+</select>
  
 </div>
 
@@ -699,14 +714,21 @@ function showNotification(
       />
 
       <select
-        value={editCategory}
-        onChange={(e) => setEditCategory(e.target.value)}
-        className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-slate-500"
-      >
-        <option value="">ללא קטגוריה</option>
+  value={editCategory}
+  onChange={(e) => setEditCategory(e.target.value)}
+  className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-slate-500"
+>
+  <option value="">ללא קטגוריה</option>
 
-       
-      </select>
+  {categories.map((category) => (
+    <option
+      key={category.id}
+      value={category.id}
+    >
+      {category.name}
+    </option>
+  ))}
+</select>
 
 {editingProduct?.image_url ? (
 <Image
