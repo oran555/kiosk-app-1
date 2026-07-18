@@ -402,19 +402,9 @@ function showNotification(
       לוח הזמנות
     </button>
 {showCategoryAdd && (
-  <div
-  className="
-    fixed
-    inset-0
-    z-50
-    overflow-y-auto
-    bg-black/50
-    p-4
-  "
->
-  <div className="flex min-h-full items-center justify-center">
-
-   <div className="w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl">
+   <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 p-4">
+    <div className="flex min-h-full items-center justify-center">
+      <div className="w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl">
 
       <h2 className="mb-5 text-2xl font-bold text-slate-900">
         קטגוריות
@@ -517,18 +507,9 @@ function showNotification(
   
 
   {showAdd && (
- <div
-  className="
-    fixed
-    inset-0
-    z-50
-    overflow-y-auto
-    bg-black/50
-    p-4
-  "
->
-  <div className="flex min-h-full items-center justify-center">
-    <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl">
+  <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 p-4">
+    <div className="flex min-h-full items-center justify-center">
+      <div className="w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl">
 
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-slate-900">
