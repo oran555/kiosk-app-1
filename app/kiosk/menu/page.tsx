@@ -333,6 +333,7 @@ function showNotification(
   
   <main className="min-h-screen bg-slate-100 p-8">
     <div className="mb-10 flex items-center justify-between">
+      
 {notification && (
   <Notification
     message={notification.message}
@@ -401,9 +402,19 @@ function showNotification(
       לוח הזמנות
     </button>
 {showCategoryAdd && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div
+  className="
+    fixed
+    inset-0
+    z-50
+    overflow-y-auto
+    bg-black/50
+    p-4
+  "
+>
+  <div className="flex min-h-full items-center justify-center">
 
-    <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
+   <div className="w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl">
 
       <h2 className="mb-5 text-2xl font-bold text-slate-900">
         קטגוריות
@@ -496,6 +507,7 @@ function showNotification(
     </div>
 
   </div>
+  </div>
 )}
 
   </div>
@@ -505,7 +517,17 @@ function showNotification(
   
 
   {showAdd && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+ <div
+  className="
+    fixed
+    inset-0
+    z-50
+    overflow-y-auto
+    bg-black/50
+    p-4
+  "
+>
+  <div className="flex min-h-full items-center justify-center">
     <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl">
 
       <div className="mb-6">
@@ -637,10 +659,21 @@ function showNotification(
 
     </div>
   </div>
+  </div>
 )}
 
  {editingProduct && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+ <div
+  className="
+    fixed
+    inset-0
+    z-50
+    overflow-y-auto
+    bg-black/50
+    p-4
+  "
+>
+  <div className="flex min-h-full items-center justify-center">
   <div className="w-full max-w-xl rounded-3xl bg-white p-8 shadow-2xl">
      <div className="mb-6">
   <h2 className="text-3xl font-bold text-slate-900">
@@ -731,6 +764,7 @@ function showNotification(
       </div>
     </div>
   </div>
+   </div>
 )}
 
    <div className="mx-auto max-w-7xl px-8 pb-10">
