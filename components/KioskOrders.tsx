@@ -72,7 +72,6 @@ export default function KioskOrders() {
   const router = useRouter();
   const notificationAudio = useRef<HTMLAudioElement | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [lastOrderCount, setLastOrderCount] = useState(0);
   const [notification, setNotification] = useState<{
   message: string;
   type: "success" | "error" | "warning" | "info";
@@ -334,18 +333,9 @@ const activeOrders = [
   >
      מוכן
   </button>
-  <button
-  onClick={() =>
-    document
-      .getElementById("delivered-orders")
-      ?.scrollIntoView({ behavior: "smooth" })
-  }
-  className="whitespace-nowrap rounded-xl bg-slate-900 px-4 py-2"
->
-   נמסר
-</button>
+
 </div>
-    <div className="grid gap-6 lg:grid-cols-3">
+    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
 
   <div id="new-orders" className="scroll-mt-24">
     <OrderColumn
@@ -367,14 +357,6 @@ const activeOrders = [
       orders={readyOrders}
     />
   </div>
-<div id="delivered-orders" className="scroll-mt-24">
-
-  <OrderColumn
-    title="נמסר"
-    orders={deliveredOrders}
-  />
-
-</div>
 </div>
   </section>
 
@@ -394,7 +376,7 @@ const activeOrders = [
         עדיין אין הזמנות שהושלמו
       </div>
     ) : (
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
        {[...deliveredOrders]
   .sort(
     (a, b) =>

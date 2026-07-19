@@ -36,7 +36,7 @@ export default function AdminProductCard({
 
       {/* Image */}
       {product.image_url ? (
-       <div className="relative w-full h-40 bg-gray-100 rounded-xl overflow-hidden">
+       <div className="relative w-full h-40 bg-white-100 rounded-xl overflow-hidden">
   <Image
     src={product.image_url}
     alt={product.name}
@@ -77,7 +77,7 @@ export default function AdminProductCard({
               ${
                 product.is_available
                   ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
+                  : "bg-red-100 text-red-600"
               }
             `}
           >
