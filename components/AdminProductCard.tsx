@@ -36,14 +36,14 @@ export default function AdminProductCard({
 
       {/* Image */}
       {product.image_url ? (
-        <Image
-          src={product.image_url}
-          alt={product.name}
-          width={400}
-          height={160}
-          className="h-52 w-full object-cover"
-          
-        />
+       <div className="relative w-full h-40 bg-gray-100 rounded-xl overflow-hidden">
+  <Image
+    src={product.image_url}
+    alt={product.name}
+    fill
+    className="object-contain p-3"
+  />
+</div>
       ) : (
         <div className="flex h-52 w-full items-center justify-center bg-slate-200 text-slate-500">
           אין תמונה

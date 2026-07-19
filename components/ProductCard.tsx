@@ -50,20 +50,22 @@ const handleAdd = () => {
 >
 
       {imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt={name}
-          width={400}
-          height={220}
-          className="
-  h-52
-  w-full
-  object-cover
-  transition-transform
-  duration-500
-  group-hover:scale-105
-"
-        />
+       <Image
+  src={imageUrl}
+  alt={name}
+  width={400}
+  height={220}
+  className="
+    h-52
+    w-full
+    object-contain
+    bg-white-50
+    p-2
+    transition-transform
+    duration-500
+    group-hover:scale-105
+  "
+/>
       ) : (
        <div
   className="
